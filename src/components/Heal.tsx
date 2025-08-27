@@ -1,32 +1,35 @@
 "use client"
-import { useState, useEffect, ReactNode, CSSProperties } from 'react';
+import { useState, useEffect, ReactNode, CSSProperties, MouseEvent } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
+import confetti from "canvas-confetti";
 
 interface CardProps {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
+  onMouseOver?: (e: MouseEvent<HTMLDivElement>) => void;
+  onMouseOut?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
-const Card = ({ children, className = "", style = {} }: CardProps) => (
-  <div className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-lg ${className}`} style={style}>
+const Card = ({ children, className = "", style = {}, onMouseOver, onMouseOut }: CardProps) => (
+  <div 
+    className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-lg ${className}`} 
+    style={style}
+    onMouseOver={onMouseOver}
+    onMouseOut={onMouseOut}
+  >
     {children}
   </div>
 );
 
 // Fallback confetti function if canvas-confetti is not available
 const throwConfetti = () => {
-  if (typeof window !== 'undefined' && window.confetti) {
-    window.confetti({
+    confetti({
       particleCount: 150,
       spread: 70,
       origin: { y: 0.6 }
     });
-  } else {
-    // Simple fallback animation
-    console.log('🎉 Confetti!');
-  }
-};
+  };
   
 const HealingHero = () => {
   const [showSmile, setShowSmile] = useState(false);
@@ -68,7 +71,7 @@ const HealingHero = () => {
     const playAudio = () => {
       audio.play().catch(() => {
         console.log('Auto-play prevented, waiting for user interaction');
-        // If auto-play fails, we&apos;ll try again on first user interaction
+        // If auto-play fails, we'll try again on first user interaction
         const playOnInteraction = () => {
           audio.play();
           document.removeEventListener('click', playOnInteraction);
