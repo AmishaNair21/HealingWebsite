@@ -1,8 +1,14 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode, CSSProperties } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
-const Card = ({ children, className = "", style = {} }) => (
+interface CardProps {
+  children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+}
+
+const Card = ({ children, className = "", style = {} }: CardProps) => (
   <div className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-lg ${className}`} style={style}>
     {children}
   </div>
@@ -26,7 +32,7 @@ const HealingHero = () => {
   const [showSmile, setShowSmile] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
-  const [audioElement, setAudioElement] = useState(null);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
   const messages = [
     {
@@ -166,12 +172,14 @@ const HealingHero = () => {
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease'
               }}
               onMouseOver={(e) => {
-                e.target.style.transform = 'scale(1.02)';
-                e.target.style.boxShadow = '0 0 40px rgba(255, 182, 193, 0.8), 0 0 70px rgba(186, 225, 255, 0.6)';
+                const target = e.target as HTMLElement;
+                target.style.transform = 'scale(1.02)';
+                target.style.boxShadow = '0 0 40px rgba(255, 182, 193, 0.8), 0 0 70px rgba(186, 225, 255, 0.6)';
               }}
               onMouseOut={(e) => {
-                e.target.style.transform = 'scale(1)';
-                e.target.style.boxShadow = '0 0 30px rgba(255, 182, 193, 0.6), 0 0 60px rgba(186, 225, 255, 0.4)';
+                const target = e.target as HTMLElement;
+                target.style.transform = 'scale(1)';
+                target.style.boxShadow = '0 0 30px rgba(255, 182, 193, 0.6), 0 0 60px rgba(186, 225, 255, 0.4)';
               }}
             />
           </div>
@@ -214,12 +222,14 @@ const HealingHero = () => {
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease'
               }}
               onMouseOver={(e) => {
-                e.target.style.transform = 'scale(1.02)';
-                e.target.style.boxShadow = '0 0 40px rgba(255, 182, 193, 0.8), 0 0 70px rgba(186, 225, 255, 0.6)';
+                const target = e.target as HTMLElement;
+                target.style.transform = 'scale(1.02)';
+                target.style.boxShadow = '0 0 40px rgba(255, 182, 193, 0.8), 0 0 70px rgba(186, 225, 255, 0.6)';
               }}
               onMouseOut={(e) => {
-                e.target.style.transform = 'scale(1)';
-                e.target.style.boxShadow = '0 0 30px rgba(255, 182, 193, 0.6), 0 0 60px rgba(186, 225, 255, 0.4)';
+                const target = e.target as HTMLElement;
+                target.style.transform = 'scale(1)';
+                target.style.boxShadow = '0 0 30px rgba(255, 182, 193, 0.6), 0 0 60px rgba(186, 225, 255, 0.4)';
               }}
             />
                 <p style={{
@@ -307,12 +317,14 @@ const HealingHero = () => {
                 boxShadow: '0 4px 15px rgba(244, 114, 182, 0.3)'
               }}
               onMouseOver={(e) => {
-                e.target.style.transform = 'scale(1.05)';
-                e.target.style.boxShadow = '0 6px 20px rgba(244, 114, 182, 0.4)';
+                const target = e.target as HTMLElement;
+                target.style.transform = 'scale(1.05)';
+                target.style.boxShadow = '0 6px 20px rgba(244, 114, 182, 0.4)';
               }}
               onMouseOut={(e) => {
-                e.target.style.transform = 'scale(1)';
-                e.target.style.boxShadow = '0 4px 15px rgba(244, 114, 182, 0.3)';
+                const target = e.target as HTMLElement;
+                target.style.transform = 'scale(1)';
+                target.style.boxShadow = '0 4px 15px rgba(244, 114, 182, 0.3)';
               }}
             >
               Click here for a smile ✨
@@ -422,12 +434,14 @@ const HealingHero = () => {
           justifyContent: 'center'
         }}
         onMouseOver={(e) => {
-          e.target.style.transform = 'scale(1.1)';
-          e.target.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
+          const target = e.target as HTMLElement;
+          target.style.transform = 'scale(1.1)';
+          target.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.2)';
         }}
         onMouseOut={(e) => {
-          e.target.style.transform = 'scale(1)';
-          e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
+          const target = e.target as HTMLElement;
+          target.style.transform = 'scale(1)';
+          target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.15)';
         }}
       >
         {isMuted ? (
