@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
+import confetti from "canvas-confetti";
 
 const Card = ({ children, className = "", style = {} }) => (
   <div className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-lg ${className}`} style={style}>
@@ -8,6 +9,14 @@ const Card = ({ children, className = "", style = {} }) => (
   </div>
 );
 
+const throwConfetti = () => {
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  };
+  
 const HealingHero = () => {
   const [showSmile, setShowSmile] = useState(false);
   const [messageIndex, setMessageIndex] = useState(0);
@@ -35,6 +44,7 @@ const HealingHero = () => {
     setShowSmile(true);
     setMessageIndex((prev) => (prev + 1) % clickMessages.length);
     setTimeout(() => setShowSmile(false), 3000);
+    throwConfetti();
   };
 
   // Auto-play background music on page load
@@ -215,7 +225,7 @@ const HealingHero = () => {
             margin: '0 auto 32px auto',
             lineHeight: '1.6'
           }}>
-            Dawai vagera kakay teekh hojana jaldi , tumhara energetic wapas chaiyay mujay
+            Dawai vagera kakay teekh hojana jaldi , tumhara energetic side wapas chaiyay mujay
           </p>
           </div>
         </div>
