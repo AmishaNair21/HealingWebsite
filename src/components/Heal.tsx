@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
-import confetti from "canvas-confetti";
 
 const Card = ({ children, className = "", style = {} }) => (
   <div className={`bg-white/80 backdrop-blur-sm rounded-lg shadow-lg ${className}`} style={style}>
@@ -9,13 +8,19 @@ const Card = ({ children, className = "", style = {} }) => (
   </div>
 );
 
+// Fallback confetti function if canvas-confetti is not available
 const throwConfetti = () => {
-    confetti({
+  if (typeof window !== 'undefined' && window.confetti) {
+    window.confetti({
       particleCount: 150,
       spread: 70,
       origin: { y: 0.6 }
     });
-  };
+  } else {
+    // Simple fallback animation
+    console.log('🎉 Confetti!');
+  }
+};
   
 const HealingHero = () => {
   const [showSmile, setShowSmile] = useState(false);
@@ -55,9 +60,9 @@ const HealingHero = () => {
     
     // Auto-play with user interaction fallback
     const playAudio = () => {
-      audio.play().catch(err => {
+      audio.play().catch(() => {
         console.log('Auto-play prevented, waiting for user interaction');
-        // If auto-play fails, we'll try again on first user interaction
+        // If auto-play fails, we&apos;ll try again on first user interaction
         const playOnInteraction = () => {
           audio.play();
           document.removeEventListener('click', playOnInteraction);
@@ -377,7 +382,7 @@ const HealingHero = () => {
               marginBottom: '16px',
               color: '#ec4899'
             }}>
-              You're Not Alone 🌷
+              You&apos;re Not Alone 🌷
             </h2>
             <p style={{
               fontSize: '1.125rem',
@@ -385,8 +390,8 @@ const HealingHero = () => {
               lineHeight: '1.6',
               margin: 0
             }}>
-              I'm here, thinking of you, sending you all the love and positive energy in the world. 
-              Take your time to rest and heal. Your body knows what it needs, and you're doing 
+              I&apos;m here, thinking of you, sending you all the love and positive energy in the world. 
+              Take your time to rest and heal. Your body knows what it needs, and you&apos;re doing 
               everything right. Wishing you the speediest and gentlest recovery. 💜
             </p>
           </Card>
